@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sports Brief">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#F2F1EC">
+<meta name="robots" content="noindex">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+<link rel="icon" type="image/png" href="apple-touch-icon.png?v=2">
+<title>The Daily Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#F2F1EC;--card:#FFFFFF;--ink:#121417;--muted:#5B6068;--sub:#3D4148;--line:#ECEAE3;--soft:#F7F6F2;--blue:#2563EB}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1000px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 20px) 16px 40px;display:flex;flex-direction:column;gap:16px}
+.cond{font-family:'Barlow Condensed',sans-serif}
+.lbl{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sec{padding:8px 4px 0}
+.card{background:var(--card);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.head{display:flex;align-items:center;gap:12px}
+.head .t{flex:1;display:flex;flex-direction:column;min-width:0}
+.head h2{margin:0;font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;line-height:1.1}
+.head .s{font-size:13px;color:var(--muted)}
+.logo{width:44px;height:44px;object-fit:contain;flex-shrink:0}
+.badge{font-family:'Barlow Condensed',sans-serif;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;width:44px;height:44px;font-size:15px}
+.res{text-align:right;display:flex;flex-direction:column}
+.res b{font-family:'Barlow Condensed',sans-serif;font-size:17px}
+.res b.L{color:var(--muted)}
+.res span{font-size:12px;color:var(--muted)}
+.bul{display:flex;flex-direction:column;gap:4px;padding:12px 0;border-top:1px solid var(--line)}
+.bul p{margin:0;font-size:15px;line-height:1.45}
+.src{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.bul.nw .src::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.tag{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 6px;border-radius:4px;background:var(--bg);color:var(--sub)}
+.pl{font-weight:600}
+.pn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:var(--sub);background:var(--bg);border-radius:4px;padding:1px 5px;margin-left:5px;letter-spacing:.02em;white-space:nowrap}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.box{background:var(--soft);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.box .lbl{font-size:11px}
+.sl{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:18px}
+.sl.lose{color:var(--muted)} .sl.win{font-weight:700}
+.gd{background:#121417;color:#fff;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.gd ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.45}
+.gd li b{color:#FFCD00}
+.gd .pn{background:#2A2D33;color:#E7E8EA}
+.recap ul{margin:0;padding:0 0 0 18px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.45}
+.perf{display:flex;justify-content:space-between;align-items:center;font-size:14px;gap:8px}
+.perf b{font-family:'Barlow Condensed',sans-serif;font-size:16px;white-space:nowrap}
+.strow{display:grid;grid-template-columns:28px minmax(0,1fr) 56px 56px;padding:8px 10px;border-radius:8px;font-size:14px}
+.strow.me{background:#FFF4C2;font-weight:700}
+.strow.h{padding:0 10px 4px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.strow span:nth-child(n+3){text-align:right}
+.game{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-top:1px solid var(--line)}
+.game .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.game .m{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700}
+.game .tm{font-size:12px;color:var(--muted)}
+.game .w{font-size:13px;color:var(--sub)}
+.lg{display:flex;gap:12px;padding:14px 0}
+.lg+.lg{border-top:1px solid var(--line)}
+.lg .k{width:44px;flex-shrink:0;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--muted)}
+.lg ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.4}
+.ew{display:flex;gap:10px;align-items:flex-start;padding:12px 0}
+.ew+.ew{border-top:1px solid var(--line)}
+.sport{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;flex-shrink:0;min-width:34px;text-align:center;color:#fff}
+details{border-top:1px solid var(--line)}
+details:first-of-type{border-top:none}
+summary{list-style:none;display:flex;align-items:center;gap:12px;min-height:60px;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary .chev{transition:transform .2s}
+details[open] summary .chev{transform:rotate(180deg)}
+.lb{display:flex;flex-direction:column;background:var(--soft);border-radius:12px;padding:4px 12px;margin-bottom:4px}
+.lb div{display:flex;justify-content:space-between;padding:6px 0;font-family:'Barlow Condensed',sans-serif;font-size:17px}
+.lb div+div{border-top:1px solid #E3E1DA}
+.wk{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px}
+.wk div{border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.wk .d{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.wk .n{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;line-height:1.1}
+.wk .tt{font-size:12px;font-weight:500}
+.cols{display:grid;gap:16px;align-items:start}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+@media (min-width:760px){.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding-left:28px;padding-right:28px}}
+.wt{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}
+.wt .wl{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.wc{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--card);border:1px solid #E3E1DA;color:var(--ink);white-space:nowrap}
+.wc i{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.wc span{font-weight:500;color:var(--muted)}
+.wn{font-size:11px;color:var(--muted)}
+.dk .wc{background:#2A2D33;border-color:#3A3E45;color:#fff}
+.dk .wc span,.dk .wn,.dk .wl{color:#C9CCD1}
+.wk .ws{font-size:11px;font-weight:600;opacity:.85;line-height:1.2}
+footer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 0;font-size:12px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header style="display:flex;flex-direction:column;gap:6px;padding:8px 4px 4px">
+<span class="lbl">Saturday · Nov 28</span>
+<h1 class="cond" style="margin:0;font-size:44px;line-height:1;font-weight:700">The Daily Brief</h1>
+<p style="margin:0;font-size:13px;color:var(--muted)">Updated 6:00 AM CT<span id="newc"></span></p>
+</header>
+
+
+<section style="display:flex;flex-direction:column;gap:8px">
+<span class="lbl" style="padding:0 4px">Your teams, next few days</span>
+<div class="wk">
+<div style="background:#CE1126;color:#FFFFFF"><span class="d">Today</span><span class="n">Devils</span><span class="tt">6:00 PM</span><span class="ws">ESPN+</span></div><div style="background:#AA0000;color:#FFFFFF"><span class="d">Tomorrow</span><span class="n">49ers</span><span class="tt">3:25 PM</span><span class="ws">YTTV</span></div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<div class="cols">
+<div class="col">
+
+<article class="card" style="gap:14px">
+<div class="head"><img class="logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png" alt="" style="width:44px;height:44px"><div class="t"><h2>Hawkeye Football</h2><span class="s">10-2 · 2nd in Big Ten</span></div></div>
+<div class="two">
+<div class="box"><span class="lbl">Last · Final</span>
+<div class="sl lose"><span>#25 NEB</span><span>7</span></div><div class="sl win"><span>#13 IOWA</span><span>31</span></div>
+</div>
+
+</div>
+
+
+<div class="box recap" style="gap:10px;padding:12px">
+<span class="lbl">Recap · W 31–7 vs Nebraska</span>
+<ul><li>Iowa&#x27;s rushing quarterback play decided the game, with Brown adding three touchdown runs to a passing score.</li><li>Nebraska&#x27;s muffed-punt recovery in the third quarter led to no points after a stop on downs at the Iowa 35.</li></ul>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #E3E1DA;padding-top:10px">
+<span class="lbl">Top performers</span>
+<div class="perf"><span><span class="pl">Hank Brown<span class="pn">QB 9</span></span></span><b>13/18, 173 yds, 1 pass TD · 3 rush TD</b></div><div class="perf"><span><span class="pl">L.J. Phillips Jr.<span class="pn">RB 21</span></span></span><b>14 CAR, 76 yds</b></div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column"><span class="lbl" style="padding-bottom:4px">What people are saying</span><a href="https://on3.com/teams/iowa-hawkeyes/news/iowa-hawkeyes-football-phillips-rushing/" class="bul" data-id="eb83e45d1d" target="_blank" rel="noopener"><p><span class="pl">L.J. Phillips Jr.<span class="pn">RB 21</span></span> battled a shoulder issue that had him in and out of the lineup, still finishing with 76 yards at 5.4 per carry.</p><span class="src"><span class="tag">Injury</span>On3 Hawkeye Report · 9h</span></a><a href="https://on3.com/teams/iowa-hawkeyes/news/iowa-hawkeyes-report-podcast-win-nebraska/" class="bul" data-id="70ef90242d" target="_blank" rel="noopener"><p>The On3 podcast breaks down <span class="pl">Hank Brown<span class="pn">QB 9</span></span>&#x27;s hat trick of rushing scores, including a season-high 29-yard run.</p><span class="src"><span class="tag">Fan site</span>On3 Hawkeye Report · 8h</span></a><a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxOcmFzTFB2SkZGazhGdDZxR1BkaF8ydDFxay1TVzljam1JSUxxWWJiQ21uY2c5ZkZpcko4enlzY2twLS1hZEtKR0pLMTBQVzJVZmZHcEY2SC1ickU0NGlyNHNzb3czV09RT3U3TXNHdHhXdVVjRi1vdlBDY3dtNHBJYXZFdTNxYk1TSUZtMTFjajN2akNMMk9sS0JnOUtxcTBwbzB4Z3RYYkc2OHhCbnpmSTBaMmpERTlUZFE?oc=5" class="bul" data-id="a7d32a00a3" target="_blank" rel="noopener"><p>The Daily Iowan column argues there should be no argument against Iowa making the College Football Playoff.</p><span class="src"><span class="tag">Opinion</span>The Daily Iowan · 11h</span></a><a href="https://on3.com/teams/iowa-hawkeyes/news/iowa-hawkeyes-football-defense-shutout-again/" class="bul" data-id="c027ab6bef" target="_blank" rel="noopener"><p>Iowa&#x27;s defense pitched another second-half shutout, following a similar stretch against Illinois the week before.</p><span class="src"><span class="tag">Analysis</span>On3 Hawkeye Report · 10h</span></a></div>
+</article>
+
+<article class="card">
+<span class="lbl" style="color:var(--ink)">Big Ten standings</span>
+<div style="display:flex;flex-direction:column">
+<div class="strow h"><span></span><span>Team</span><span>Conf</span><span>All</span></div>
+<div class="strow"><span class="cond" style="font-size:16px;color:var(--muted)">1</span><span>UCLA</span><span>7-1</span><span style="color:var(--muted)">10-1</span></div><div class="strow me"><span class="cond" style="font-size:16px;color:var(--muted)">2</span><span>Iowa</span><span>7-2</span><span style="color:var(--muted)">10-2</span></div><div class="strow"><span class="cond" style="font-size:16px;color:var(--muted)">3</span><span>Indiana</span><span>6-2</span><span style="color:var(--muted)">9-2</span></div><div class="strow"><span class="cond" style="font-size:16px;color:var(--muted)">4</span><span>Oregon</span><span>6-2</span><span style="color:var(--muted)">8-3</span></div><div class="strow"><span class="cond" style="font-size:16px;color:var(--muted)">5</span><span>Wisconsin</span><span>6-3</span><span style="color:var(--muted)">8-4</span></div>
+</div>
+<div class="box" style="padding:12px"><span class="lbl">Playoff picture</span><span style="font-size:14px;line-height:1.45">Iowa is 10-2 and 13th in the Playoff Committee Rankings, second in the Big Ten at 7-2 behind UCLA&#39;s 7-1, so its title-game path still needs other results to break its way.</span></div>
+</article>
+
+
+</div>
+
+<div class="col">
+<div class="lbl sec" style="padding-top:0">Pro teams</div>
+
+<article class="card">
+<div class="head"><img class="logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" alt="" style="width:40px;height:40px"><div class="t"><h2 style="font-size:22px">Chiefs</h2><span class="s">8-3</span></div>
+<div class="res"><b class="L">L 10–13</b><span>Thu · Next: Thu 7:15 PM</span></div></div>
+<div class="wt"><span class="wl">Watch</span><a class="wc" href="https://www.amazon.com/gp/video/storefront" target="_blank" rel="noopener"><i style="background:#1399FF"></i>Prime Video</a></div>
+
+
+<div class="box recap" style="gap:10px;padding:12px">
+<span class="lbl">Recap · L 10–13 at Bills</span>
+<ul><li><span class="pl">Patrick Mahomes<span class="pn">QB 15</span></span> went 16 of 29 for 174 yards as the offense managed five three-and-outs in cold, windy rain.</li><li>Bass&#x27;s 57-yard field goal as time expired won it 13-10, after a three-and-out at their own 11 left 15 seconds on the clock.</li></ul>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #E3E1DA;padding-top:10px">
+<span class="lbl">Top performers</span>
+<div class="perf"><span><span class="pl">Patrick Mahomes<span class="pn">QB 15</span></span></span><b>16/29, 174 yds</b></div><div class="perf"><span><span class="pl">Emmett Johnson<span class="pn">RB 10</span></span></span><b>17 car, 72 yds, 1 TD</b></div><div class="perf"><span><span class="pl">Travis Kelce<span class="pn">TE 87</span></span></span><b>4 rec, 71 yds</b></div>
+</div>
+</div>
+
+<a href="#" class="bul" data-id="d46f712d2d" target="_blank" rel="noopener"><p>Andy Reid addressed <span class="pl">Harrison Butker<span class="pn">PK 7</span></span>&#x27;s future after the costly miss; Butker is 8 of 16 from 40 yards or longer this season.</p><span class="src"><span class="tag">Report</span></span></a><a href="#" class="bul" data-id="a23c4cf900" target="_blank" rel="noopener"><p>Special teams cost them: <span class="pl">Matt Araiza<span class="pn">P 14</span></span>&#x27;s punt was partially tipped, and Greg Dortch returned it 17 yards to KC&#x27;s 39 before the final drive.</p><span class="src"><span class="tag">Analysis</span></span></a>
+</article>
+
+<article class="card">
+<div class="head"><img class="logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" alt="" style="width:40px;height:40px"><div class="t"><h2 style="font-size:22px">49ers</h2><span class="s">9-1</span></div>
+<div class="res"><b class="W">W 35–10</b><span>Next: Tomorrow 3:25 PM</span></div></div>
+<div class="wt"><span class="wl">Watch</span><a class="wc" href="https://tv.youtube.com/" target="_blank" rel="noopener"><i style="background:#FF0033"></i>YouTube TV <span>Fox*</span></a><span class="wn">* regional, only if Des Moines gets it</span></div>
+
+
+<a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxOV3ZZdkRTSXJYMzZWZXRWdFBkQ0RvN3ZGNlVnVzJBelRRTTVTQWZFQXlnU2l3eUNvenpXLW1YUldFRXhhdnlleGRzTV83azRYUkp3UFY3b0NDQnRJTkpYVTViQmlFRGpuT0R4Qk9nanFvNW81ZGstMmU1eFd2RGRUb1kyaDYxM29qaHJlZV8wbXB5YUhsUlpQamt0NHplZWotRjBOeHRFRjF2U1JVZVE?oc=5" class="bul" data-id="a5c067e039" target="_blank" rel="noopener"><p><span class="pl">Brock Purdy<span class="pn">QB 13</span></span> is ruled out Sunday with an ankle injury, so <span class="pl">Mac Jones<span class="pn">QB 10</span></span> takes over at quarterback against Seattle.</p><span class="src"><span class="tag">Injury</span>NBC Sports · 9h</span></a><a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxQU1dCa1R3RlhRYnhQRFI1emIydnF3RkxNeE5CcTB1V21kX2ZLNEo3a2tWNjQ0MFVWQnAwSm4tTWVjd0xXbkVEOVNxelA0b2E4U2NjdHVjanRVSGdCblRqTHJiR1BKdzVrZUJPV2l4dGlCdHh3cWlTdFBlY21zUUpJemNkSHFZaGdTQ3ppUk90bmpFeDdTa1QtSThSWlpyWldBaE16ZmV4b1hOeGJubUE?oc=5" class="bul" data-id="45c71ab621" target="_blank" rel="noopener"><p><span class="pl">Mac Jones<span class="pn">QB 10</span></span> wouldn&#x27;t have minded a trade, but he gets to start Sunday against Seattle, a trade-off of sorts.</p><span class="src"><span class="tag">Beat writer</span>San Francisco Chronicle · 9h</span></a>
+</article>
+
+<article class="card">
+<div class="head"><img class="logo" src="https://a.espncdn.com/i/teamlogos/nhl/500/nj.png" alt="" style="width:40px;height:40px"><div class="t"><h2 style="font-size:22px">Devils</h2><span class="s">18-8</span></div>
+<div class="res"><b class="W">W 5–3</b><span>Fri · Next: Today 6:00 PM</span></div></div>
+
+
+<div class="gd"><div style="display:flex;justify-content:space-between;align-items:center"><span class="lbl" style="color:#FFCD00">Game day · what to watch</span><span style="font-size:12px;color:#C9CCD1">6:00 PM</span></div>
+<div class="wt dk"><span class="wl">Watch</span><a class="wc" href="https://www.espn.com/watch/" target="_blank" rel="noopener"><i style="background:#FFB800"></i>ESPN+</a></div>
+<ul><li><b>Matchup:</b> Devils (18-8) host Winnipeg with <span class="pl">Declan Chisholm<span class="pn">D 47</span></span> out and <span class="pl">Anthony Mantha<span class="pn">RW 39</span></span>, <span class="pl">Johnathan Kovacevic<span class="pn">D 8</span></span>, <span class="pl">Seamus Casey<span class="pn">D 24</span></span> on injured reserve.</li><li><b>Player to watch:</b> <span class="pl">Connor Hellebuyck<span class="pn">G 37</span></span> is expected in net for the Devils against the Jets, his biggest test since the trade.</li><li><b>Key stat:</b> New Jersey is 11-3 at home and owns the NHL-leading 10th comeback win after Friday&#x27;s 5-3 victory over Calgary.</li></ul></div>
+
+
+<div class="box recap" style="gap:10px;padding:12px">
+<span class="lbl">Recap · W 5–3 vs Flames</span>
+<ul><li><span class="pl">Connor Brown<span class="pn">RW 16</span></span>&#x27;s go-ahead goal off a scramble with 3:58 left flipped a 3-2 deficit, and the Devils killed a late penalty to hold on.</li><li><span class="pl">Jack Hughes<span class="pn">C 86</span></span> tied it at 3 while falling near the crease, and <span class="pl">Luke Hughes<span class="pn">D 43</span></span> added an empty-netter with 11 seconds left.</li></ul>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #E3E1DA;padding-top:10px">
+<span class="lbl">Top performers</span>
+<div class="perf"><span><span class="pl">Jack Hughes<span class="pn">C 86</span></span></span><b>1G · 3A</b></div><div class="perf"><span><span class="pl">Luke Hughes<span class="pn">D 43</span></span></span><b>2G</b></div><div class="perf"><span><span class="pl">Connor Brown<span class="pn">RW 16</span></span></span><b>1G</b></div>
+</div>
+</div>
+
+<a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxOYVZFT0owZXMydlZXLWRhSF94V0QwZXVucDM3YUpxbGhFQlRuZ2NxSWdaVFhJN092SkpocGNfa0lMRGxMUHJSRVpkYWNlLUVRb2JiSXRCLTRHLW9tYm1CNEw2ZDVEUVdHUmFRaVVCNW1UQ3A1ZFFXX1FTdkw2S3diN1VfVzlQblhzUnVXc0l0NDktdlVXVkhDdGJCUQ?oc=5" class="bul" data-id="7f08d19762" target="_blank" rel="noopener"><p><span class="pl">Connor Hellebuyck<span class="pn">G 37</span></span> is expected in net against Winnipeg, a test Heavy calls his biggest since the blockbuster trade.</p><span class="src"><span class="tag">Analysis</span>Heavy.com · 1h</span></a><a href="https://news.google.com/rss/articles/CBMihwFBVV95cUxPUU9CSW5Mb1BJMnh2VWxmM1VhTF9mSTdXT3BSYWpHdnd3Ym1uMWQ4OHhMV1M3ZFVzc1pkWFNuSHQwRWZvbjRaMTRuOGNoUXgtTVctRXBOMlBtMmtmamlNSDVJenFWUENFSE1aLVQzWlgtanAydE56Rl9KWFNrd2E1RV9SWWZpWTg?oc=5" class="bul" data-id="60b56db388" target="_blank" rel="noopener"><p>Devils&#x27; new-look first line is already paying early dividends, according to Pucks and Pitchforks.</p><span class="src"><span class="tag">Opinion</span>Pucks and Pitchforks · 10h</span></a>
+</article>
+
+
+
+<div class="lbl sec">Games worth watching</div>
+<article class="card" style="gap:4px">
+
+<span class="lbl" style="color:var(--ink)">College Football</span>
+<div class="game"><div class="row"><span class="m">Michigan at #21 Ohio State</span><span class="tm">Today 11:00 AM</span></div><span class="w">Rivalry finale; Michigan&#x27;s QB expected to start despite hamstring issue.</span><div class="wt"><span class="wl">Watch</span><a class="wc" href="https://tv.youtube.com/" target="_blank" rel="noopener"><i style="background:#FF0033"></i>YouTube TV <span>Fox</span></a></div></div><div class="game"><div class="row"><span class="m">#15 USC at #9 UCLA</span><span class="tm">Today 2:30 PM</span></div><span class="w">USC band skipping performance after vandalism; rivalry stakes at UCLA.</span><div class="wt"><span class="wl">Watch</span><a class="wc" href="https://tv.youtube.com/" target="_blank" rel="noopener"><i style="background:#FF0033"></i>YouTube TV <span>CBS</span></a><a class="wc" href="https://www.paramountplus.com/live-tv/" target="_blank" rel="noopener"><i style="background:#0064FF"></i>Paramount+ <span>CBS</span></a></div></div>
+
+<span class="lbl" style="color:var(--ink);padding-top:12px">NFL</span>
+<div class="game"><div class="row"><span class="m">Patriots at Chargers</span><span class="tm">Tomorrow 3:05 PM</span></div><span class="w">Chargers start backup QB in first NFL start; Patriots visit.</span><div class="wt"><span class="wl">Watch</span><a class="wc" href="https://tv.youtube.com/" target="_blank" rel="noopener"><i style="background:#FF0033"></i>YouTube TV <span>CBS*</span></a><a class="wc" href="https://www.paramountplus.com/live-tv/" target="_blank" rel="noopener"><i style="background:#0064FF"></i>Paramount+ <span>CBS*</span></a><span class="wn">* regional, only if Des Moines gets it</span></div></div>
+
+<span class="lbl" style="color:var(--ink);padding-top:12px">NHL</span>
+<div class="game"><div class="row"><span class="m">Lightning at Panthers</span><span class="tm">Today 5:00 PM</span></div><span class="w">Tampa Bay on a losing streak visits in-state rival Florida.</span><div class="wt"><span class="wl">Watch</span><a class="wc" href="https://www.espn.com/watch/" target="_blank" rel="noopener"><i style="background:#FFB800"></i>ESPN+</a></div></div>
+
+</article>
+
+</div>
+</div>
+
+<div class="cols">
+<div class="col">
+<div class="lbl sec">Around the leagues</div>
+<article class="card" style="padding:4px 16px;gap:0">
+<div class="lg"><span class="k">CFB</span><ul><li><a href="https://www.espn.com/college-football/story/_/id/50619461/texas-not-perfect-finds-way-again-win-texas-am" target="_blank" rel="noopener">Texas beat Texas A&amp;M 16-6 on Friday and reaches the SEC title game against Georgia.</a></li><li><a href="https://www.espn.com/college-football/story/_/id/50616023/injured-florida-quarterback-aaron-philo-exits-3rd-quarter" target="_blank" rel="noopener">Florida starter <span class="pl">Aaron Philo</span> left the Florida State win in the third quarter with an injury.</a></li></ul></div><div class="lg"><span class="k">NFL</span><ul><li><a href="https://www.espn.com/nfl/story/_/id/50615818/qb-dj-uiagalelei-start-chargers-justin-herbert-concussion-protocol" target="_blank" rel="noopener"><span class="pl">Justin Herbert</span> is out Sunday in concussion protocol, so <span class="pl">DJ Uiagalelei</span> starts his first NFL game.</a></li></ul></div><div class="lg"><span class="k">NHL</span><ul><li><a href="http://www.espn.com/nhl/preview?gameId=401892824" target="_blank" rel="noopener">Canucks take losing streak into game against the Bruins</a></li><li><a href="http://www.espn.com/nhl/preview?gameId=401892814" target="_blank" rel="noopener">Rangers bring 3-game losing streak into matchup against the Flames</a></li></ul></div>
+</article>
+</div>
+<div class="col">
+
+<div class="lbl sec">Catch up · off-peak</div>
+<article class="card" style="padding:4px 16px;gap:0">
+
+<details>
+<summary><div class="badge" style="background:#0B2341;color:#FFFFFF;width:36px;height:36px">PGA</div><span style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0"><span class="cond" style="font-size:19px;font-weight:700;line-height:1.1">PGA Tour</span><span style="font-size:12px;color:var(--muted)">Hero World Challenge · 12/3 - 12:00 AM EST</span></span>
+<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B6068" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+<div style="display:flex;flex-direction:column;padding:0 0 12px">
+
+<a href="https://news.google.com/rss/articles/CBMioAJBVV95cUxPbUhaNnFCX1Q0T1p6b2p0SmJab1g0WENZd2FMQ1JnX1ZGTmIyS1NBaUpCQU95Y2tQQ2Q1RzIwcS1hbEdoWHQ2Y0liLVQyQXlicnFvS2UwVl96OTR5SzgzWDNaSUN6MVhYb0Z2cnUtdWRpcVRKRVc3a3c5QnZDS0JqcXR0cHY2aDBDQTRhSWsySThXV1g2cUVCQVIxTjllUXc4MUtXVTh4VThSZ0JmdDRYVUJiR2dBTmRlaTdmM0xhRnpuU0lTazJKVWVkaHVCaWt3dG13RFdzY0R5TWVxZzVON2lRUXgwcnRXR255Nl9uR3ZnRTNCQjB3ODd4WDE4WXQ5c0ZuZUgwZlkxRFdUWEJNelBwaGtOXzJaUXJfQVZwS3I?oc=5" class="bul" data-id="3e98ee6b73" target="_blank" rel="noopener"><p><span class="pl">Cam Smith</span>&#x27;s title hopes unravelled in a horror slide while <span class="pl">Nicolai von Dellingshausen</span> surged to control the Australian PGA.</p><span class="src"><span class="tag">Report</span>Nine.com.au · 8h</span></a><a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxPc3lUekRKU1lsN2VxX2pHc19ybXRBX3d6bGU2MVFfc3AtLWIxU0s3eTVzTVJIZUxZVnQwTjBwOXo4NkJIc09GU1VNZzNQbjl2eElqX0s3TUlVVGxTdF9fTDVTcEQwc2h2VVc2NUJpMkZYS0ljVmt0Z2JJVTNPLVB1REloQ1ZsTU1fdEJXR2Nfelo5SnVlSmtWZ3JMY183RTF5M0FqVWQ0LTdHMEFtZi1XYlVhSFJZR3Z6VjdEcnZvRlJ5UFZEWU9nWXpRRW84NVlldmtN?oc=5" class="bul" data-id="2158b57776" target="_blank" rel="noopener"><p><span class="pl">Adam Scott</span> fired a 65 (-7) in Round 3 and said he feels sharper, even after being seven shots back.</p><span class="src"><span class="tag">Analysis</span>Fox Sports · 9h</span></a>
+<div class="bul"><p>Next: PGA TOUR Q-School presented by Korn Ferry · Dec 10</p></div>
+</div>
+</details>
+
+<details>
+<summary><img class="logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png" alt="" style="width:36px;height:36px"><span style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0"><span class="cond" style="font-size:19px;font-weight:700;line-height:1.1">Hawkeye Basketball</span><span style="font-size:12px;color:var(--muted)">4-2 · next: PV at IOWA Nov 28</span></span>
+<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B6068" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+<div style="display:flex;flex-direction:column;padding:0 0 12px">
+
+<a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxNOGJwYl9vcXVERk9VcmJtV0Y1WUF2WG90aE5ZeDQ0Y0tMUHFSZk5TOW0tVzdVTU5ncFh2aWpYcWZmZjhCNDBkd2VsNXMxVFlPSWVtYVMtTngyM05FckFROTh0Z1pLXzZESFQxQ3FxeEtwdVBIckRua1hqRU5BNENUSmh2c1k3RGNNRUZrTkw1dExFYzRaN213OVpLQ1ZhdHZIazNRLTJhREU3d1NtY3JTc2IyTWNVNDZkOFRGaTNhYUsyR09rSmVnVml3OWYwN25OTWdJSnBwOTQ4S3N6NXNhWnBUajM5Vk0?oc=5" class="bul" data-id="0a42722c02" target="_blank" rel="noopener"><p>Ben McCollum&#x27;s notebook covers the Xavier win, <span class="pl">Andrew McKeever<span class="pn">C 45</span></span>&#x27;s status and future scheduling. Read it for the latest on McKeever&#x27;s availability.</p><span class="src"><span class="tag">Beat writer</span>247Sports · 9h</span></a><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxNWTR3MkRUVHl4akYyRXFaWEtiNnQydVhYZ3ZEdFJqVEJocWgtcmNKMkdxZFExVkNNYkZFbWN2Z1RKVUxxSF8zLUY2ZTNXVlc5dTd6dW1acEtoUWItc2xPbnc5Ukp1TEJ0T3ZnTXVKc2NocVY1VV95dmVSTjNsTDNnNzhReUJSM3ZsdHp1dm1XMHBrMVg0NlBTME5Wcnh0Q1ltWmh3OFJ4cXFVUmxWMy1oUW1UY1RrUEN6OVFnMTFxT1g?oc=5" class="bul" data-id="95eef7ae00" target="_blank" rel="noopener"><p>Five day-after takeaways from the 83-65 road win at Xavier break down what Iowa showed away from home. It&#x27;s the quickest read on the team&#x27;s current form.</p><span class="src"><span class="tag">Analysis</span>247Sports · 6h</span></a>
+
+</div>
+</details>
+
+</article>
+
+
+
+<div class="lbl sec">Elsewhere in sports</div>
+<article class="card" style="padding:4px 16px;gap:0">
+<a class="ew" href="https://www.autosport.com/f1/news/f1-qatar-gp-fp1-report-10878259/10878259/?utm_source=RSS&amp;utm_medium=referral&amp;utm_campaign=RSS-F1&amp;utm_term=News&amp;utm_content=uk" target="_blank" rel="noopener"><span class="sport" style="background:#121417">F1</span><span style="font-size:14px;line-height:1.4">Newly crowned world champion <span class="pl">Kimi Antonelli</span> tops first practice at the Qatar Grand Prix.</span></a>
+</article>
+
+</div>
+</div>
+
+<footer>
+<span>Summaries by Claude from 180 articles · tap any line for the source</span>
+<span>Next update today 12:00 PM CT</span>
+</footer>
+</div>
+<script>
+(function(){
+  var K='brief-seen', seen={}, first=false;
+  try{ var raw=localStorage.getItem(K); if(raw) seen=JSON.parse(raw); else first=true; }catch(e){ first=true; }
+  var els=document.querySelectorAll('.bul[data-id]'), n=0, now=Date.now();
+  els.forEach(function(el){ var id=el.getAttribute('data-id'); if(!seen[id]){ if(!first){el.classList.add('nw'); n++;} seen[id]=now; } });
+  if(n){ var c=document.getElementById('newc'); c.innerHTML=' · <span style="color:#2563EB;font-weight:600">'+n+' new</span> since last check'; }
+  for(var k in seen){ if(now-seen[k]>7*864e5) delete seen[k]; }
+  try{ localStorage.setItem(K, JSON.stringify(seen)); }catch(e){}
+})();
+</script>
+</body>
+</html>
